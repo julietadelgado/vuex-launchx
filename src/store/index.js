@@ -1,14 +1,36 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+    state: {
+        contador: 0
+    },
+    getters: {
+        cuadrado(state) {
+            return state.contador * state.contador;
+        }
+    },
+    mutations: {
+        subirContador(state, random) {
+            state.contador += random;
+        },
+        bajarContador(state, random) {
+            //state.contador--;
+            state.contador -= random;
+        },
+    },
+    actions: {
+        async subirContador({ commit }) { //(state)
+            const res = await fetch('https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new')
+            const results = await res.json();
+            console.log(results)
+            commit("subirContador", results);
+        },
+        async bajarContador({ commit }) { //(state)
+            const res = await fetch('https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new')
+            const results = await res.json();
+            console.log(results)
+            commit("bajarContador", results);
+        }
+    },
+    modules: {}
 })
